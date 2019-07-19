@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/exchangeRateListFragment">
+
+    <fragment
+        android:id="@+id/exchangeRateListFragment"
+        android:name="pl.janowicz.fixer.ui.list.ExchangeRateListFragment"
+        android:label="ExchangeRateListFragment">
+        <action
+            android:id="@+id/action_exchangeRateListFragment_to_exchangeRateDetailsFragment"
+            app:destination="@id/exchangeRateDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exchangeRateDetailsFragment"
+        android:name="pl.janowicz.fixer.ui.details.ExchangeRateDetailsFragment"
+        android:label="ExchangeRateDetailsFragment" />
+</navigation>
