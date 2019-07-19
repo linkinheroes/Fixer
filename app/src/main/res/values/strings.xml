@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Fixer</string>
+    <string name="exchange_rate_list_title">Euro exchange rates</string>
 </resources>
