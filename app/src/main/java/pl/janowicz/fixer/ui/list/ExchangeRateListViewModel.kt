@@ -20,9 +20,9 @@ class ExchangeRateListViewModel(
 
     private lateinit var lastDownloadedDay: Calendar
 
-    val downloadedDays = mutableListOf<ExchangeRatesDay>()
+    val downloadedDays = mutableListOf<ExchangeRateDay>()
 
-    val exchangeRatesDay = SingleLiveEvent<ExchangeRatesDay>()
+    val exchangeRatesDay = SingleLiveEvent<ExchangeRateDay>()
 
     val loading = MutableLiveData<Boolean>()
 
@@ -59,8 +59,8 @@ class ExchangeRateListViewModel(
         }
     }
 
-    private fun ExchangeRatesResponse.convertToExchangeRatesDay(): ExchangeRatesDay {
-        return ExchangeRatesDay(dayHeaderDateFormat.format(date), rates.map {
+    private fun ExchangeRatesResponse.convertToExchangeRatesDay(): ExchangeRateDay {
+        return ExchangeRateDay(dayHeaderDateFormat.format(date), rates.map {
             ExchangeRateRow(it.key, it.value)
         })
     }

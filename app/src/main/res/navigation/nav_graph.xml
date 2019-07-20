@@ -15,5 +15,15 @@
     <fragment
         android:id="@+id/exchangeRateDetailsFragment"
         android:name="pl.janowicz.fixer.ui.details.ExchangeRateDetailsFragment"
-        android:label="ExchangeRateDetailsFragment" />
+        android:label="ExchangeRateDetailsFragment">
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="currencyName"
+            app:argType="string" />
+        <argument
+            android:name="currencyRate"
+            app:argType="string" />
+    </fragment>
 </navigation>

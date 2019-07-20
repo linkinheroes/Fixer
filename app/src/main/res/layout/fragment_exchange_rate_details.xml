@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/exchange_rate_details_date_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/exchange_rate_details_currency_name_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="28 maj 2019, wtorek" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/exchange_rate_details_currency_name_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exchange_rate_details_date_text_view"
+        app:layout_constraintWidth_percent="0.5"
+        tools:text="PLN" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/exchange_rate_details_currency_rate_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        app:layout_constraintBottom_toBottomOf="@id/exchange_rate_details_currency_name_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/exchange_rate_details_currency_name_text_view"
+        app:layout_constraintWidth_percent="0.5"
+        tools:text="0.3494" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

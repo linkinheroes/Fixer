@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_exchange_rate_list.*
@@ -16,7 +17,14 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
 
     private val exchangeRateListViewModel: ExchangeRateListViewModel by viewModel()
 
-    private val exchangeRatesAdapter = ExchangeRatesAdapter {}
+    private val exchangeRatesAdapter = ExchangeRatesAdapter { date, currencyName, rate ->
+        val directions = ExchangeRateListFragmentDirections.actionExchangeRateListFragmentToExchangeRateDetailsFragment(
+            date,
+            currencyName,
+            rate
+        )
+        findNavController().navigate(directions)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

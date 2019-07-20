@@ -16,7 +16,6 @@ import pl.janowicz.fixer.ui.list.ExchangeRateListViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
 class FixerApplication : Application() {
 
     private val appModule = module {

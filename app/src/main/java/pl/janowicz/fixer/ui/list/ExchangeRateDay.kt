@@ -1,6 +1,6 @@
 package pl.janowicz.fixer.ui.list
 
-data class ExchangeRatesDay(
+data class ExchangeRateDay(
     val dateHeader: String,
     val rates: List<ExchangeRateRow>
 )

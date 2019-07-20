@@ -3,13 +3,13 @@ package pl.janowicz.fixer.ui.list.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pl.janowicz.fixer.R
-import pl.janowicz.fixer.ui.list.ExchangeRatesDay
+import pl.janowicz.fixer.ui.list.ExchangeRateDay
 import pl.janowicz.fixer.util.inflate
 
-class ExchangeRatesAdapter(onExchangeRateClick: (exchangeRateDay: ExchangeRatesDay) -> Unit) :
+class ExchangeRatesAdapter(private val onExchangeRateClick: (date: String, currencyName: String, rate: String) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val exchangeRatesDayList = mutableListOf<ExchangeRatesDay>()
+    private val exchangeRatesDayList = mutableListOf<ExchangeRateDay>()
 
     private val headersPositions = mutableListOf<Int>()
 
@@ -36,7 +36,10 @@ class ExchangeRatesAdapter(onExchangeRateClick: (exchangeRateDay: ExchangeRatesD
                     val lastRateInDayPosition = counter + day.rates.size + 1
                     if (position < lastRateInDayPosition) {
                         val rateIndex = position - counter - 1
-                        holder.bind(day.rates[rateIndex])
+                        val exchangeRateRow = day.rates[rateIndex]
+                        holder.bind(exchangeRateRow) {
+                            onExchangeRateClick(day.dateHeader, exchangeRateRow.currency, exchangeRateRow.rate)
+                        }
                         break@loop
                     } else {
                         counter = lastRateInDayPosition
@@ -54,11 +57,11 @@ class ExchangeRatesAdapter(onExchangeRateClick: (exchangeRateDay: ExchangeRatesD
         }
     }
 
-    fun addExchangeRatesDay(exchangeRatesDay: ExchangeRatesDay) {
+    fun addExchangeRatesDay(exchangeRateDay: ExchangeRateDay) {
         headersPositions.add(itemCount)
-        exchangeRatesDayList.add(exchangeRatesDay)
+        exchangeRatesDayList.add(exchangeRateDay)
         val currentItemCount = itemCount
-        val elementsToAddCount = exchangeRatesDay.rates.size + 1
+        val elementsToAddCount = exchangeRateDay.rates.size + 1
         itemCount += elementsToAddCount
         notifyItemRangeInserted(currentItemCount, elementsToAddCount)
     }

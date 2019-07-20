@@ -7,8 +7,11 @@ import pl.janowicz.fixer.ui.list.ExchangeRateRow
 
 class CurrencyRateRowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(exchangeRateRow: ExchangeRateRow) = with(itemView) {
+    fun bind(exchangeRateRow: ExchangeRateRow, onClick: () -> Unit) = with(itemView) {
         exchange_rate_currency_text_view.text = exchangeRateRow.currency
         exchange_rate_text_view.text = exchangeRateRow.rate
+        setOnClickListener {
+            onClick()
+        }
     }
 }
