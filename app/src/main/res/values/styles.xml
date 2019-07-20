@@ -20,10 +20,18 @@
         <item name="android:textSize">@dimen/exchange_rate_list_day_header_text_size</item>
     </style>
 
-    <style name="ExchangeRateListRowText" parent="Widget.AppCompat.TextView">
+    <style name="ExchangeRateListRowCurrencyText" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/exchange_rate_list_day_row_text</item>
         <item name="android:textSize">@dimen/exchange_rate_list_day_row_text_size</item>
         <item name="android:layout_margin">@dimen/exchange_rate_list_day_row_text_margin</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ExchangeRateListRowRateText" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/exchange_rate_list_day_row_text</item>
+        <item name="android:textSize">@dimen/exchange_rate_list_day_row_text_size</item>
+        <item name="android:layout_margin">@dimen/exchange_rate_list_day_row_text_margin</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

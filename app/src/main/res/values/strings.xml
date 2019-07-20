@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Fixer</string>
+    <string name="app_name" translatable="false">Fixer</string>
 
-    <string name="exchange_rate_list_title">Euro exchange rates</string>
+    <string name="exchange_rate_list_title">EURO exchange rates</string>
 
     <string name="api_error_server">Server error: %1$d</string>
     <string name="api_error_wrong_response">Wrong response from server</string>
-    <string name="api_error_connection">Connection error. Check your internet connection.</string>
+    <string name="api_error_connection">Connection error. Check your Internet connection.</string>
 </resources>

@@ -20,13 +20,19 @@ class ExchangeRateListViewModel(
 
     private lateinit var lastDownloadedDay: Calendar
 
+    val downloadedDays = mutableListOf<ExchangeRatesDay>()
+
     val exchangeRatesDay = SingleLiveEvent<ExchangeRatesDay>()
 
     val loading = MutableLiveData<Boolean>()
 
     val errorMessage = SingleLiveEvent<String>()
 
-    fun getTodayRates() = viewModelScope.launch(Dispatchers.IO) {
+    init {
+        getTodayRates()
+    }
+
+    private fun getTodayRates() = viewModelScope.launch(Dispatchers.IO) {
         lastDownloadedDay = Calendar.getInstance()
         downloadExchangeRates(lastDownloadedDay.time)
     }
@@ -42,7 +48,9 @@ class ExchangeRateListViewModel(
         loading.postValue(false)
         when (result) {
             is Result.Success -> {
-                exchangeRatesDay.postValue(result.value.convertToExchangeRatesDay())
+                val exchangeRateDay = result.value.convertToExchangeRatesDay()
+                downloadedDays.add(exchangeRateDay)
+                exchangeRatesDay.postValue(exchangeRateDay)
             }
             is Result.Error -> {
                 lastDownloadedDay.add(Calendar.DATE, 1)
@@ -52,11 +60,9 @@ class ExchangeRateListViewModel(
     }
 
     private fun ExchangeRatesResponse.convertToExchangeRatesDay(): ExchangeRatesDay {
-        val rateList = mutableListOf<String>()
-        rateList.addAll(rates.map {
-            "${it.key}: ${it.value}"
+        return ExchangeRatesDay(dayHeaderDateFormat.format(date), rates.map {
+            ExchangeRateRow(it.key, it.value)
         })
-        return ExchangeRatesDay(dayHeaderDateFormat.format(date), rateList)
     }
 
 }
