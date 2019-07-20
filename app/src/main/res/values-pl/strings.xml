@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exchange_rate_list_title">Kurs wymiany EURO</string>
+
+    <string name="api_error_server">Błąd serwera: %1$d</string>
+    <string name="api_error_wrong_response">Błędna odpowiedź od serwera</string>
+    <string name="api_error_connection">Błąd połączenia. Sprawdź swoje połączenie z Internetem.</string>
+</resources>
