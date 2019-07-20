@@ -2,4 +2,9 @@
 <resources>
     <dimen name="exchange_rate_list_title_text_size">22sp</dimen>
     <dimen name="exchange_rate_list_title_padding">16dp</dimen>
+    <dimen name="exchange_rate_list_day_header_text_size">18sp</dimen>
+    <dimen name="exchange_rate_list_day_header_text_padding">16dp</dimen>
+    <dimen name="exchange_rate_list_day_row_vertical_margin">16dp</dimen>
+    <dimen name="exchange_rate_list_day_row_text_margin">10dp</dimen>
+    <dimen name="exchange_rate_list_day_row_text_size">14sp</dimen>
 </resources>

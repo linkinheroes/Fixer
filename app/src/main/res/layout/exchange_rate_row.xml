@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/exchange_rate_list_day_row_vertical_margin"
+    android:layout_marginEnd="@dimen/exchange_rate_list_day_row_vertical_margin">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/exchange_rate_card_text_view"
+        style="@style/ExchangeRateListRowText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="AUD : 0.3682" />
+</androidx.cardview.widget.CardView>
