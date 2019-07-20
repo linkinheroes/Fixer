@@ -19,6 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', "FixerAccessKey", Fixer_AccessKey
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -30,6 +31,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions { jvmTarget = "1.8" }
 }
 
 def nav_version = "2.1.0-beta01"
@@ -50,6 +53,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.6.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.6.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.0.1"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"

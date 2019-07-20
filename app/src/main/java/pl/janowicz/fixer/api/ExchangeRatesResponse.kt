@@ -6,7 +6,7 @@ data class ExchangeRatesResponse(
     val base: String,
     val date: Date,
     val historical: Boolean,
-    val rates: Rates,
+    val rates: Map<String, String>,
     val success: Boolean,
     val timestamp: Long
 )

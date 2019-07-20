@@ -5,13 +5,17 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import pl.janowicz.fixer.BuildConfig
 import pl.janowicz.fixer.api.DateAdapter
 import pl.janowicz.fixer.api.FixerService
+import pl.janowicz.fixer.repository.ExchangeRatesRepository
+import pl.janowicz.fixer.ui.list.ExchangeRateListViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+
 
 class FixerApplication : Application() {
 
@@ -39,6 +43,8 @@ class FixerApplication : Application() {
                 .build()
         }
         factory { get<Retrofit>().create(FixerService::class.java) }
+        single { ExchangeRatesRepository(get(), get()) }
+        viewModel { ExchangeRateListViewModel(get()) }
     }
 
     override fun onCreate() {
