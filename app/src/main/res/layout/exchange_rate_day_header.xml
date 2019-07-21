@@ -2,7 +2,9 @@
 <androidx.appcompat.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/exchange_rate_day_header_text_view"
-    style="@style/ExchangeRateListDayHeader"
+    style="@style/Text.Bold"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/exchange_rate_list_day_header_text_padding"
+    android:textSize="@dimen/exchange_rate_list_day_header_text_size"
     tools:text="11 maja 2019, Wtorek" />

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/exchange_rate_list_day_row_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -11,9 +12,13 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/exchange_rate_currency_text_view"
-            style="@style/ExchangeRateListRowCurrencyText"
+            style="@style/Text.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/exchange_rate_list_day_row_text_margin"
+            android:gravity="center"
+            android:textColor="@color/exchange_rate_list_day_row_text"
+            android:textSize="@dimen/exchange_rate_list_day_row_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,9 +27,13 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/exchange_rate_text_view"
-            style="@style/ExchangeRateListRowRateText"
+            style="@style/Text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/exchange_rate_list_day_row_text_margin"
+            android:gravity="center"
+            android:textColor="@color/exchange_rate_list_day_row_text"
+            android:textSize="@dimen/exchange_rate_list_day_row_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

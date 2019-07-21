@@ -3,38 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/exchange_rate_details_padding">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/exchange_rate_details_back_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/exchange_rate_details_animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exchange_rate_details_animation_height"
+        app:layout_constraintBottom_toTopOf="@id/exchange_rate_details_date_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/animation_money" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/exchange_rate_details_date_text_view"
+        style="@style/Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/exchange_rate_details_items_vertical_space"
         android:gravity="center"
+        android:textSize="@dimen/exchange_rate_details_date_text_size"
         app:layout_constraintBottom_toTopOf="@id/exchange_rate_details_currency_name_text_view"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/exchange_rate_details_animation_view"
         tools:text="28 maj 2019, wtorek" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/exchange_rate_details_currency_name_text_view"
-        android:layout_width="0dp"
+        style="@style/Text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="end"
+        android:layout_marginTop="@dimen/exchange_rate_details_items_vertical_space"
+        android:layout_marginEnd="@dimen/exchange_rate_details_currency_horizontal_space"
+        android:gravity="center"
+        android:textSize="@dimen/exchange_rate_details_currency_name_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/exchange_rate_details_currency_rate_text_view"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exchange_rate_details_date_text_view"
-        app:layout_constraintWidth_percent="0.5"
         tools:text="PLN" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/exchange_rate_details_currency_rate_text_view"
-        android:layout_width="0dp"
+        style="@style/Text.Bold"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="start"
+        android:gravity="center"
+        android:textSize="@dimen/exchange_rate_details_currency_rate_text_size"
         app:layout_constraintBottom_toBottomOf="@id/exchange_rate_details_currency_name_text_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/exchange_rate_details_currency_name_text_view"
         app:layout_constraintTop_toTopOf="@id/exchange_rate_details_currency_name_text_view"
-        app:layout_constraintWidth_percent="0.5"
         tools:text="0.3494" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

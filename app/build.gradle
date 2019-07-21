@@ -18,6 +18,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', "FixerAccessKey", Fixer_AccessKey
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -46,6 +47,7 @@ dependencies {
     implementation "com.google.android.material:material:1.1.0-alpha08"
     implementation "androidx.recyclerview:recyclerview:1.1.0-beta01"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
+    implementation "com.airbnb.android:lottie:3.0.1"
 
     implementation "org.koin:koin-android:2.0.1"
     implementation "org.koin:koin-androidx-viewmodel:2.0.1"

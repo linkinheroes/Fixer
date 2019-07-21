@@ -4,7 +4,5 @@
     <color name="colorPrimaryDark">@android:color/black</color>
     <color name="colorAccent">@android:color/holo_orange_dark</color>
 
-    <color name="exchange_rate_list_title_text">@android:color/black</color>
-    <color name="exchange_rate_list_day_header_text">@android:color/black</color>
     <color name="exchange_rate_list_day_row_text">@android:color/secondary_text_light</color>
 </resources>

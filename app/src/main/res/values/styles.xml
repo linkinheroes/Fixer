@@ -6,37 +6,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ExchangeRateListHeader" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/exchange_rate_list_title_text</item>
-        <item name="android:textStyle">bold</item>
+    <style name="Text" parent="Widget.AppCompat.TextView">
         <item name="android:fontFamily">@font/ubuntu</item>
-        <item name="android:padding">@dimen/exchange_rate_list_title_padding</item>
-        <item name="android:textSize">@dimen/exchange_rate_list_title_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
-    <style name="ExchangeRateListDayHeader" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/exchange_rate_list_day_header_text</item>
+    <style name="Text.Bold" parent="Text">
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/ubuntu</item>
-        <item name="android:padding">@dimen/exchange_rate_list_day_header_text_padding</item>
-        <item name="android:textSize">@dimen/exchange_rate_list_day_header_text_size</item>
-    </style>
-
-    <style name="ExchangeRateListRowCurrencyText" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/exchange_rate_list_day_row_text</item>
-        <item name="android:textSize">@dimen/exchange_rate_list_day_row_text_size</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/ubuntu</item>
-        <item name="android:layout_margin">@dimen/exchange_rate_list_day_row_text_margin</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="ExchangeRateListRowRateText" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/exchange_rate_list_day_row_text</item>
-        <item name="android:textSize">@dimen/exchange_rate_list_day_row_text_size</item>
-        <item name="android:layout_margin">@dimen/exchange_rate_list_day_row_text_margin</item>
-        <item name="android:gravity">center</item>
-        <item name="android:fontFamily">@font/ubuntu</item>
     </style>
 
 </resources>

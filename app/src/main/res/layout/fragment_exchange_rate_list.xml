@@ -21,8 +21,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/exchange_rate_list_title_text_view"
-                style="@style/ExchangeRateListHeader"
+                style="@style/Text.Bold"
+                android:padding="@dimen/exchange_rate_list_title_padding"
                 android:layout_width="match_parent"
+                android:textSize="@dimen/exchange_rate_list_title_text_size"
                 android:layout_height="wrap_content"
                 android:text="@string/exchange_rate_list_title" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
