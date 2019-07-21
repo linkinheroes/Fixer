@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.janowicz.fixer.R
 import pl.janowicz.fixer.ui.list.ExchangeRateDay
 import pl.janowicz.fixer.util.inflate
+import kotlin.properties.Delegates
 
 class ExchangeRatesAdapter(private val onExchangeRateClick: (date: String, currencyName: String, rate: String) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -15,10 +16,23 @@ class ExchangeRatesAdapter(private val onExchangeRateClick: (date: String, curre
 
     private var itemCount = 0
 
+    var showLoading: Boolean by Delegates.observable(false) { _, old, new ->
+        if (new != old) {
+            if (new) {
+                itemCount += 1
+                notifyItemInserted(itemCount - 1)
+            } else {
+                itemCount -= 1
+                notifyItemRemoved(itemCount)
+            }
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         HEADER -> DayHeaderViewHolder(
             parent.inflate(R.layout.exchange_rate_day_header)
         )
+        LOADING -> ExchangeRateLoadingViewHolder(parent.inflate(R.layout.layout_exchange_rate_list_loading))
         else -> CurrencyRateRowViewHolder(parent.inflate(R.layout.exchange_rate_row))
     }
 
@@ -50,10 +64,10 @@ class ExchangeRatesAdapter(private val onExchangeRateClick: (date: String, curre
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position in headersPositions) {
-            HEADER
-        } else {
-            ROW
+        return when {
+            position in headersPositions -> HEADER
+            position == itemCount - 1 && showLoading -> LOADING
+            else -> ROW
         }
     }
 
@@ -79,8 +93,10 @@ class ExchangeRatesAdapter(private val onExchangeRateClick: (date: String, curre
         notifyDataSetChanged()
     }
 
+
     companion object {
         private const val HEADER = 0
         private const val ROW = 1
+        private const val LOADING = 2
     }
 }

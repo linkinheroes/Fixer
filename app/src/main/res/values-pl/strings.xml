@@ -4,5 +4,5 @@
 
     <string name="api_error_server">Błąd serwera: %1$d</string>
     <string name="api_error_wrong_response">Błędna odpowiedź od serwera</string>
-    <string name="api_error_connection">Błąd połączenia. Sprawdź swoje połączenie z Internetem.</string>
+    <string name="api_error_connection">Błąd pobierania. Sprawdź połączenie z Internetem.</string>
 </resources>

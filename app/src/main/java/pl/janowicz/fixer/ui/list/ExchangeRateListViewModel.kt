@@ -59,11 +59,12 @@ class ExchangeRateListViewModel(
     fun getPreviousDayRates() = viewModelScope.launch(Dispatchers.IO) {
         lastDownloadedDay.add(Calendar.DATE, -1)
         _loading.postValue(true)
-        downloadExchangeRates(lastDownloadedDay.time)?.let { exchangeRateDay ->
+        val exchangeRateDay = downloadExchangeRates(lastDownloadedDay.time)
+        _loading.postValue(false)
+        if (exchangeRateDay != null) {
             _downloadedDays.add(exchangeRateDay)
             _exchangeRatesDay.postValue(exchangeRateDay)
         }
-        _loading.postValue(false)
     }
 
     private suspend fun downloadExchangeRates(date: Date): ExchangeRateDay? {
@@ -86,7 +87,7 @@ class ExchangeRateListViewModel(
     }
 
     companion object {
-        const val LEFT_ITEMS_TO_LOAD_NEXT = 20
+        const val LEFT_ITEMS_TO_LOAD_NEXT = 10
     }
 
 }

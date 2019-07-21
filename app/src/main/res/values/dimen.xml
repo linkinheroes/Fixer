@@ -8,4 +8,5 @@
     <dimen name="exchange_rate_list_day_header_text_padding">10dp</dimen>
     <dimen name="exchange_rate_list_day_row_text_margin">10dp</dimen>
     <dimen name="exchange_rate_list_day_row_text_size">14sp</dimen>
+    <dimen name="exchange_rate_list_loading_padding">10dp</dimen>
 </resources>

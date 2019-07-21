@@ -34,7 +34,7 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
             exchange_rate_list_swipe_refresh_layout.isRefreshing = it
         })
         exchangeRateListViewModel.loading.observe(viewLifecycleOwner, Observer {
-
+            exchangeRatesAdapter.showLoading = it
         })
         exchangeRateListViewModel.initialExchangeRatesDay.observe(viewLifecycleOwner, Observer {
             exchangeRatesAdapter.replace(it)
@@ -43,7 +43,7 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
             exchangeRatesAdapter.add(it)
         })
         exchangeRateListViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            Snackbar.make(exchange_rate_list_coordinator_layout, it, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(exchange_rate_list_coordinator_layout, it, Snackbar.LENGTH_INDEFINITE).show()
         })
         exchangeRateListViewModel.downloadedDays.forEach {
             exchangeRatesAdapter.add(it)
