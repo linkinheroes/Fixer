@@ -22,11 +22,11 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/exchange_rate_list_title_text_view"
                 style="@style/Text.Bold"
-                android:padding="@dimen/exchange_rate_list_title_padding"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/exchange_rate_list_title_text_size"
                 android:layout_height="wrap_content"
-                android:text="@string/exchange_rate_list_title" />
+                android:padding="@dimen/exchange_rate_list_title_padding"
+                android:text="@string/exchange_rate_list_title"
+                android:textSize="@dimen/exchange_rate_list_title_text_size" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -40,7 +40,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/exchange_rate_list_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layoutAnimation="@anim/layout_animation_fall_down" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

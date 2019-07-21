@@ -38,6 +38,7 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
         })
         exchangeRateListViewModel.initialExchangeRatesDay.observe(viewLifecycleOwner, Observer {
             exchangeRatesAdapter.replace(it)
+            exchange_rate_list_recycler_view.scheduleLayoutAnimation()
         })
         exchangeRateListViewModel.exchangeRatesDay.observe(viewLifecycleOwner, Observer {
             exchangeRatesAdapter.add(it)
