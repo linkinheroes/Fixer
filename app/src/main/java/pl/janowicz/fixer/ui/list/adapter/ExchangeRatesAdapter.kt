@@ -57,13 +57,26 @@ class ExchangeRatesAdapter(private val onExchangeRateClick: (date: String, curre
         }
     }
 
-    fun addExchangeRatesDay(exchangeRateDay: ExchangeRateDay) {
+    fun add(exchangeRateDay: ExchangeRateDay) {
         headersPositions.add(itemCount)
         exchangeRatesDayList.add(exchangeRateDay)
         val currentItemCount = itemCount
         val elementsToAddCount = exchangeRateDay.rates.size + 1
         itemCount += elementsToAddCount
         notifyItemRangeInserted(currentItemCount, elementsToAddCount)
+    }
+
+    fun replace(exchangeRateDay: ExchangeRateDay) {
+        exchangeRatesDayList.apply {
+            clear()
+            add(exchangeRateDay)
+        }
+        itemCount = exchangeRateDay.rates.size + 1
+        headersPositions.apply {
+            clear()
+            add(0)
+        }
+        notifyDataSetChanged()
     }
 
     companion object {

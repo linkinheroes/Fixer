@@ -4,7 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface FixerService {
+interface FixerApi {
 
     @GET("{date}")
     suspend fun getExchangeRates(
