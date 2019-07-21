@@ -26,7 +26,7 @@ class FixerApplication : Application() {
             OkHttpClient.Builder().apply {
                 addInterceptor {
                     val original = it.request()
-                    val url = original.url.newBuilder()
+                    val url = original.url().newBuilder()
                         .addQueryParameter(API_ACCESS_KEY_PARAM, BuildConfig.FixerAccessKey)
                         .build()
                     val requestBuilder = original.newBuilder().url(url)
