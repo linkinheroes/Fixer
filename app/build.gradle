@@ -48,9 +48,16 @@ android {
     }
 
     kotlinOptions { jvmTarget = "1.8" }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        animationsDisabled = true
+    }
 }
 
-def nav_version = "2.1.0-beta01"
+def nav_version = "2.1.0-beta02"
+def koin_version = "2.0.1"
+def okHttp_version = "3.12.3"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -62,14 +69,15 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0-beta01"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
     implementation "com.airbnb.android:lottie:3.0.1"
+    /*implementation "androidx.fragment:fragment:$fragment_version"*/
 
-    implementation "org.koin:koin-android:2.0.1"
-    implementation "org.koin:koin-androidx-viewmodel:2.0.1"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     implementation "com.squareup.retrofit2:retrofit:2.6.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.6.0"
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
-    implementation "com.squareup.okhttp3:logging-interceptor:3.12.3"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp_version"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -79,6 +87,9 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3"
 
     testImplementation "junit:junit:4.12"
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.1'
+    androidTestImplementation "androidx.test:core:1.2.0"
     androidTestImplementation "androidx.test:runner:1.2.0"
+    androidTestImplementation "androidx.test:rules:1.2.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
 }
