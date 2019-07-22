@@ -12,11 +12,14 @@ class ExchangeRatesRepository(
     private val fixerApi: FixerApi
 ) {
 
-    private val apiDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
+        timeZone = TimeZone.getTimeZone("UTC")
+    }
 
     suspend fun getExchangeRates(date: Date): Result<ExchangeRatesResponse> {
         return try {
-            val response = fixerApi.getExchangeRates(apiDateFormat.format(date))
+            val dateInApiFormat = dateFormat.format(date)
+            val response = fixerApi.getExchangeRates(dateInApiFormat)
             if (response.isSuccessful) {
                 val exchangeRatesResponse = response.body()
                 if (exchangeRatesResponse != null) {
