@@ -11,7 +11,7 @@
     <dimen name="exchange_rate_list_day_row_corner_radius">16dp</dimen>
     <dimen name="exchange_rate_list_loading_padding">10dp</dimen>
 
-    <dimen name="exchange_rate_details_padding">16dp</dimen>
+    <dimen name="exchange_rate_details_margin">16dp</dimen>
     <dimen name="exchange_rate_details_animation_height">150dp</dimen>
     <dimen name="exchange_rate_details_items_vertical_space">16dp</dimen>
     <dimen name="exchange_rate_details_date_text_size">30sp</dimen>

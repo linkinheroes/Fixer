@@ -26,7 +26,7 @@ class ExchangeRateDetailsFragment : Fragment(R.layout.fragment_exchange_rate_det
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             exchange_rate_details_constraint_layout.setOnApplyWindowInsetsListener { v, insets ->
-                v.updatePadding(top = insets.systemWindowInsetTop + v.paddingTop)
+                v.updatePadding(top = insets.systemWindowInsetTop)
                 insets
             }
         }
