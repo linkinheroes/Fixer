@@ -87,7 +87,7 @@ class ExchangeRateListViewModel(
     }
 
     companion object {
-        const val LEFT_ITEMS_TO_LOAD_NEXT = 10
+        const val LEFT_ITEMS_TO_LOAD_NEXT = 20
     }
 
 }
