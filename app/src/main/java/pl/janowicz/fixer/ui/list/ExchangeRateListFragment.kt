@@ -30,6 +30,13 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exchangeRateListViewModel.downloadedDays.forEach {
+            exchangeRatesAdapter.add(it)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         exchangeRateListViewModel.initialLoading.observe(viewLifecycleOwner, Observer {
@@ -48,9 +55,6 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
         exchangeRateListViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             Snackbar.make(exchange_rate_list_coordinator_layout, it, Snackbar.LENGTH_INDEFINITE).show()
         })
-        exchangeRateListViewModel.downloadedDays.forEach {
-            exchangeRatesAdapter.add(it)
-        }
         exchange_rate_list_recycler_view.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = exchangeRatesAdapter
