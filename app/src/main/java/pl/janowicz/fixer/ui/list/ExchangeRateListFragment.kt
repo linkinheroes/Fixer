@@ -1,7 +1,9 @@
 package pl.janowicz.fixer.ui.list
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -63,6 +65,12 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
         }
         exchange_rate_list_swipe_refresh_layout.setOnRefreshListener {
             exchangeRateListViewModel.getTodayRates()
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            exchange_rate_list_coordinator_layout.setOnApplyWindowInsetsListener { v, insets ->
+                v.updatePadding(top = insets.systemWindowInsetTop)
+                insets
+            }
         }
     }
 }

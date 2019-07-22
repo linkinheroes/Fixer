@@ -1,7 +1,9 @@
 package pl.janowicz.fixer.ui.details
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,6 +23,12 @@ class ExchangeRateDetailsFragment : Fragment(R.layout.fragment_exchange_rate_det
         }
         exchange_rate_details_back_image_view.setOnClickListener {
             findNavController().popBackStack()
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            exchange_rate_details_constraint_layout.setOnApplyWindowInsetsListener { v, insets ->
+                v.updatePadding(top = insets.systemWindowInsetTop + v.paddingTop)
+                insets
+            }
         }
     }
 }
