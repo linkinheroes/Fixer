@@ -4,6 +4,7 @@ import android.content.Context
 import pl.janowicz.fixer.R
 import pl.janowicz.fixer.api.ExchangeRatesResponse
 import pl.janowicz.fixer.api.FixerApi
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,7 +31,7 @@ class ExchangeRatesRepository(
             } else {
                 Result.Error(context.getString(R.string.api_error_server, response.code()))
             }
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             Result.Error(context.getString(R.string.api_error_connection))
         }
     }
