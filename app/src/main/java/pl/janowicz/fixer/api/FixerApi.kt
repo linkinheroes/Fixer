@@ -1,5 +1,6 @@
 package pl.janowicz.fixer.api
 
+import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -7,7 +8,7 @@ import retrofit2.http.Path
 interface FixerApi {
 
     @GET("{date}")
-    suspend fun getExchangeRates(
+    fun getExchangeRates(
         @Path("date") date: String
-    ): Response<ExchangeRatesResponse>
+    ): Single<Response<ExchangeRatesResponse>>
 }

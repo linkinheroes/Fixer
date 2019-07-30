@@ -1,23 +1,32 @@
 package pl.janowicz.fixer.ui.list
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
+import pl.janowicz.fixer.R
 import pl.janowicz.fixer.api.ExchangeRatesResponse
-import pl.janowicz.fixer.repository.ExchangeRatesRepository
-import pl.janowicz.fixer.repository.Result
+import pl.janowicz.fixer.api.FixerApi
 import pl.janowicz.fixer.util.SingleLiveEvent
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class ExchangeRateListViewModel(
-    private val exchangeRatesRepository: ExchangeRatesRepository
+    private val context: Context,
+    private val fixerApi: FixerApi
 ) : ViewModel() {
 
     private val dayHeaderDateFormat = SimpleDateFormat("dd LLLL yyyy, EEEE", Locale.getDefault())
+
+    private val apiDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).apply {
+        timeZone = TimeZone.getTimeZone("UTC")
+    }
 
     private lateinit var lastDownloadedDay: Calendar
 
@@ -39,45 +48,83 @@ class ExchangeRateListViewModel(
     private val _errorMessage = SingleLiveEvent<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+    var disposables = CompositeDisposable()
+
     init {
         getTodayRates()
     }
 
-    fun getTodayRates() = viewModelScope.launch(Dispatchers.IO) {
+    override fun onCleared() {
+        disposables.clear()
+    }
+
+    fun getTodayRates() {
         lastDownloadedDay = Calendar.getInstance()
-        _initialLoading.postValue(true)
-        downloadExchangeRates(lastDownloadedDay.time)?.let { exchangeRateDay ->
-            _downloadedDays.apply {
-                clear()
-                add(exchangeRateDay)
-            }
-            _initialExchangeRatesDay.postValue(exchangeRateDay)
-        }
-        _initialLoading.postValue(false)
+        disposables.add(
+            fixerApi.getExchangeRates(apiDateFormat.format(lastDownloadedDay.time))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { _initialLoading.postValue(true) }
+                .subscribeBy(
+                    onError = {
+                        if (it is IOException) {
+                            _errorMessage.postValue(context.getString(R.string.api_error_connection))
+                        }
+                        _initialLoading.postValue(false)
+                    },
+                    onSuccess = {
+                        if (it.isSuccessful) {
+                            val exchangeRatesResponse = it.body()
+                            if (exchangeRatesResponse != null) {
+                                val exchangeRateDay = exchangeRatesResponse.convertToExchangeRatesDay()
+                                _downloadedDays.apply {
+                                    clear()
+                                    add(exchangeRateDay)
+                                }
+                                _initialExchangeRatesDay.postValue(exchangeRateDay)
+                            } else {
+                                _errorMessage.postValue(context.getString(R.string.api_error_wrong_response))
+                            }
+                        } else {
+                            _errorMessage.postValue(context.getString(R.string.api_error_server, it.code()))
+                        }
+                        _initialLoading.postValue(false)
+                    }
+                )
+        )
     }
 
-    fun getPreviousDayRates() = viewModelScope.launch(Dispatchers.IO) {
+    fun getPreviousDayRates() {
         lastDownloadedDay.add(Calendar.DATE, -1)
-        _loading.postValue(true)
-        val exchangeRateDay = downloadExchangeRates(lastDownloadedDay.time)
-        _loading.postValue(false)
-        if (exchangeRateDay != null) {
-            _downloadedDays.add(exchangeRateDay)
-            _exchangeRatesDay.postValue(exchangeRateDay)
-        }
-    }
-
-    private suspend fun downloadExchangeRates(date: Date): ExchangeRateDay? {
-        return when (val result = exchangeRatesRepository.getExchangeRates(date)) {
-            is Result.Success -> {
-                result.value.convertToExchangeRatesDay()
-            }
-            is Result.Error -> {
-                lastDownloadedDay.add(Calendar.DATE, 1)
-                _errorMessage.postValue(result.message)
-                null
-            }
-        }
+        disposables.add(
+            fixerApi.getExchangeRates(apiDateFormat.format(lastDownloadedDay.time))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { _loading.postValue(true) }
+                .subscribeBy(
+                    onError = {
+                        _loading.postValue(false)
+                        if (it is IOException) {
+                            _errorMessage.postValue(context.getString(R.string.api_error_connection))
+                        }
+                    },
+                    onSuccess = {
+                        _loading.postValue(false)
+                        if (it.isSuccessful) {
+                            val exchangeRatesResponse = it.body()
+                            if (exchangeRatesResponse != null) {
+                                val exchangeRateDay = exchangeRatesResponse.convertToExchangeRatesDay()
+                                _downloadedDays.add(exchangeRateDay)
+                                _exchangeRatesDay.postValue(exchangeRateDay)
+                            } else {
+                                _errorMessage.postValue(context.getString(R.string.api_error_wrong_response))
+                            }
+                        } else {
+                            _errorMessage.postValue(context.getString(R.string.api_error_server, it.code()))
+                        }
+                    }
+                )
+        )
     }
 
     private fun ExchangeRatesResponse.convertToExchangeRatesDay(): ExchangeRateDay {

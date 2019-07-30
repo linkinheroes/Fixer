@@ -11,9 +11,9 @@ import org.koin.dsl.module
 import pl.janowicz.fixer.BuildConfig
 import pl.janowicz.fixer.api.DateAdapter
 import pl.janowicz.fixer.api.FixerApi
-import pl.janowicz.fixer.repository.ExchangeRatesRepository
 import pl.janowicz.fixer.ui.list.ExchangeRateListViewModel
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class FixerApplication : Application() {
@@ -38,12 +38,12 @@ class FixerApplication : Application() {
             Retrofit.Builder()
                 .client(get())
                 .baseUrl(API_BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create(get()))
                 .build()
         }
         factory { get<Retrofit>().create(FixerApi::class.java) }
-        single { ExchangeRatesRepository(get(), get()) }
-        viewModel { ExchangeRateListViewModel(get()) }
+        viewModel { ExchangeRateListViewModel(get(), get()) }
     }
 
     override fun onCreate() {
