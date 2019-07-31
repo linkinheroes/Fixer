@@ -9,6 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_exchange_rate_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.janowicz.fixer.R
@@ -19,6 +23,8 @@ import pl.janowicz.fixer.util.SpaceItemDecoration
 class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) {
 
     private val exchangeRateListViewModel: ExchangeRateListViewModel by viewModel()
+
+    var disposables = CompositeDisposable()
 
     private val exchangeRatesAdapter = ExchangeRatesAdapter { date, currencyName, rate ->
         ExchangeRateListFragmentDirections.actionExchangeRateListFragmentToExchangeRateDetailsFragment(
@@ -39,9 +45,14 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        exchangeRateListViewModel.initialLoading.observe(viewLifecycleOwner, Observer {
+        /*exchangeRateListViewModel.initialLoading.observe(viewLifecycleOwner, Observer {
             exchange_rate_list_swipe_refresh_layout.isRefreshing = it
-        })
+        })*/
+        disposables += exchangeRateListViewModel.initialLoading
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnNext { exchange_rate_list_swipe_refresh_layout.isRefreshing = it }
+            .subscribe()
         exchangeRateListViewModel.loading.observe(viewLifecycleOwner, Observer {
             exchangeRatesAdapter.showLoading = it
         })
@@ -76,5 +87,10 @@ class ExchangeRateListFragment : Fragment(R.layout.fragment_exchange_rate_list) 
                 insets
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposables.clear()
     }
 }
